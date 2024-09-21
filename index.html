@@ -279,7 +279,7 @@
             color: var(--textcolor);
             border: 0px;
             border-radius: var(--borderradiusdf);
-            cursor: pointer;
+            cursor: text;
             transition: 0.15s;
             height: 80px;
             box-shadow: inset -8px -8px 16px  var(--innershadowcolorb);
@@ -618,8 +618,8 @@
     <main>
         <body>
             <div class="navbar">
-            <img class="titleimg" src="img/titleimg2.png">
-            <h1> v0.4001 PRE_ALPHA </h1>
+            <img class="titleimg" src="img/titleimg.png">
+            <h1> v0.4011 Gemini </h1>
             <hr>
             <h3 class="patchnotes">System Generation</h3>
         
@@ -637,58 +637,69 @@
             <p class="progress patchnotes"></p>-->
             <hr>
             <p></p>
-            <h3 class="patchnotes">Saving and Loading</h3>
-            <!--
-            <p></p>
-            <a download="" id="download" disabled="disabled"><button onClick="download(`systems.wssg`,fullcsv(systems));" disabled="disabled" class="genbutton">Save systems as .psf file (JSON)</button></a>
-            <p></p>
-            <input type="button" id="loadFile" class="genbutton" disabled="disabled" value="Choose .psf file" onclick="document.getElementById('file').click();" />
-            <p></p>
-            <input type="file" style="display:none;" id="file" name="file"/>
-            <button onClick="loadSystem();" disabled="disabled" class="genbutton">Load selected .psf file</button>
-            <p></p>
-            <button disabled="disabled" class="genbutton">Open customizer (new tab)</button>
-            <p></p>
-            -->
-            <hr>
             <h3 class="patchnotes">Other</h3>
             <!--<button onClick="switchTheme();" class="genbutton">Switch theme</button>-->
             <p></p>
             <hr>
             <p></p>
             <div class="infocontainer" style="overflow-y:scroll; height:500px;">
-                <h1 class="patchnotes"> COMING SOON</h1>
-                <h3 class="patchnotes">0.4011 | Gemini - planned features: </h3>
-                <p class="patchnotes">- system diagrams and planet graphics</p>
-                <p class="patchnotes">- binary stars</p>
-                <h3 class="patchnotes">0.4021 | Eridanus - planned features: </h3>
-                <p class="patchnotes">- atmospheres, greenhouse effect, and temperature simulation</p>
-                <p class="patchnotes">- surface liquids and life</p>     
+         
                 <h1 class="patchnotes"> PATCHNOTES</h1>
+                <h3 class="patchnotes">0.4011 | Gemini: </h3>
+                <p class="patchnotes">- system diagrams! (Shows all current info on each planet)</p>
+                <p class="patchnotes">- binary and even triple stars!</p>
+                <p class="patchnotes">- full JSON editing, customization, download and upload support (ripped from the original walkersysgen)</p>
+                <p class="patchnotes">- no longer in pre-alpha</p>
             <h3 class="patchnotes">v0.4001 | Orion:</h3>
             <p class="patchnotes">- pre-alpha generator released</p>
             <p class="patchnotes">- doesn't even have a system diagram yet smh</p>
             <p class="patchnotes">- and all the planets are named Salibe, what kinda generator is this</p>
+            <hr>
+            <h1 class="patchnotes"> COMING SOON</h1>
+            <h3 class="patchnotes">0.4021 | Eridanus - planned features: </h3>
+            <p class="patchnotes">- atmospheres, greenhouse effect, and temperature simulation</p>
+            <p class="patchnotes">- surface liquids and life</p>    
+            <h3 class="patchnotes">0.4031 | Horologium - planned features: </h3>
+            <p class="patchnotes">- planetary rings</p>
+            <p class="patchnotes">- rotation periods and tidal locking</p>
+            <p class="patchnotes">- binary planets and unterplanets</p>   
             </div>
             <p></p>
             <div class="infocontainer" style="overflow-y:scroll; height:500px;">
                 <h1 class="patchnotes">FAQ</h1>
-                <p class="patchnotes"><strong>This is in development!</strong></p>
+                <h3 class="patchnotes">Where are the save/load options?</h3>
+                <p class="patchnotes">Show the JSON editor, that will reveal them. The save/load options now interface directly with the customizer.</p>
+                <h3 class="patchnotes">The JSON area is tiny!</h3>
+                <p class="patchnotes">You can scale the JSON textarea by dragging on the bottom right. This is actually true of HTML textareas in general.</p>
+                <h3 class="patchnotes">.SOLAR? What even IS that?</h3>
+                <p class="patchnotes">It's literally just a JSON file, labeled SOLAR in order to mark that it's a solar system for Periapsis.</p>
+                <h3 class="patchnotes">Will we be able to migrate systems from WSSG?</h3>
+                <p class="patchnotes">Probably not. It's not on the roadmap currently, at least.</p>
             </div>
             <p></p>
         
             </div>
             <div class="main">
                 <div class="patchnotes"></p>
-                <button onClick="decrementPages();" class="genbutton pagebutton">←</button>
+                <button onClick="toggleJSONEditor();" class="genbutton">Open JSON editor</button>
+                <div style="display:none;" id="jsoneditor">
+                    <textarea type="text" class="genbutton3" placeholder="{
+        'isStar': true,
+        'isPlanet': false, ..." id="jsoninput"></textarea>
+                    <div>
+                        <button onClick="updateSystem();" class="genbutton" style="width:20%; display:inline">Update system</button>
+                        <button onClick="saveTextAsFile(t.value,'system.solar');" class="genbutton" style="width:20%; display:inline">Download SOLAR file</button>
+                        <input type="button" id="loadFile" class="genbutton" style="width:20%; display:inline; text-align:center; text-wrap:wrap;" value="Choose SOLAR file" onclick="document.getElementById('file').click();" />
+                        <button onClick="loadSystem();" class="genbutton">Load selected SOLAR file</button>
+                        <input type="file" style="display:none;" id="file" name="file"/>
+                    </div>
+                    
+                </div>
                 <span id="pagenumber"></span>
-                <button onClick="incrementPages();" class="genbutton pagebutton">→</button>
+
                 </div>
                 <p></p>
                 <div class="systemcontainer">
-                    <canvas class="systemdisplay" width="1000px" height="100px">
-                        eeeeee
-                    </canvas>
                     <div class="system">
                        
                     </div>
@@ -699,6 +710,89 @@
             <p></p>
     </main>
 	<script>
+var imgsrcs =[
+    "img/ATM_carbo.png",
+    "img/staricons/typea.png",
+    "img/staricons/typeb.png",
+    "img/staricons/typef.png",
+    "img/staricons/typeg.png",
+    "img/staricons/typek.png",
+    "img/staricons/typem.png",
+    "img/ATM_nitro.png",
+    "img/bgstars.png",
+    "img/planeticons/ammoniaOverlay1.png",
+    "img/planeticons/ammoniaOverlay2.png",
+    "img/planeticons/ammoniaOverlay3.png",
+    "img/planeticons/carbonaceousPlanet.png",
+    "img/planeticons/carbonaceousPlanet2.png",
+    "img/planeticons/carbonaceousPlanet3.png",
+    "img/planeticons/carbonaceousPlanet4.png",
+    "img/planeticons/carbonaceousPlanet5.png",
+    "img/planeticons/carbonaceousPlanet6.png",
+    "img/planeticons/gasGiant.png",
+    "img/planeticons/gasGiant2.png",
+    "img/planeticons/gasGiant3.png",
+    "img/planeticons/gasGiant4.png",
+    "img/planeticons/gasGiant5.png",
+    "img/planeticons/gasGiant6.png",
+    "img/planeticons/geoActiveOverlay2.png",
+    "img/planeticons/geoInactiveOverlay.png",
+    "img/planeticons/iceGiant.png",
+    "img/planeticons/iceGiant2.png",
+    "img/planeticons/iceGiant3.png",
+    "img/planeticons/iceGiant4.png",
+    "img/planeticons/iceGiant5.png",
+    "img/planeticons/iceGiant6.png",
+    "img/planeticons/icyPlanet.png",
+    "img/planeticons/icyPlanet2.png",
+    "img/planeticons/icyPlanet3.png",
+    "img/planeticons/icyPlanet4.png",
+    "img/planeticons/icyPlanet5.png",
+    "img/planeticons/icyPlanet6.png",
+    "img/planeticons/lifeIndicator.png",
+    "img/planeticons/lifeOverlayAmmonia.png",
+    "img/planeticons/lifeOverlayMethanum.png",
+    "img/planeticons/lifeOverlayWater.png",
+    "img/planeticons/metallicPlanet.png",
+    "img/planeticons/metallicPlanet2.png",
+    "img/planeticons/metallicPlanet3.png",
+    "img/planeticons/metallicPlanet4.png",
+    "img/planeticons/metallicPlanet5.png",
+    "img/planeticons/metallicPlanet6.png",
+    "img/planeticons/methaneOverlay1.png",
+    "img/planeticons/methaneOverlay2.png",
+    "img/planeticons/methaneOverlay3.png",
+    "img/planeticons/nitrogenOverlay1.png",
+    "img/planeticons/nitrogenOverlay2.png",
+    "img/planeticons/nitrogenOverlay3.png",
+    "img/planeticons/rockyPlanet.png",
+    "img/planeticons/rockyPlanet2.png",
+    "img/planeticons/rockyPlanet3.png",
+    "img/planeticons/rockyPlanet4.png",
+    "img/planeticons/rockyPlanet5.png",
+    "img/planeticons/rockyPlanet6.png",
+    "img/planeticons/shade.png",
+    "img/planeticons/shade2.png",
+    "img/planeticons/torridPlanetOverlay.png",
+    "img/planeticons/waterOverlay1.png",
+    "img/planeticons/waterOverlay2.png",
+    "img/planeticons/waterOverlay3.png",
+]
+var imageobjs = {
+
+}
+function Initialize(){
+
+document.documentElement.setAttribute('data-theme', 'dark');
+var promises2 = [];
+for(let ak = 0; ak < imgsrcs.length; ak++){
+    promises2.push(add_image_to_list2(imageobjs,imgsrcs[ak]));
+}
+
+
+Promise.allSettled(promises2).then(console.log("All images loaded!"));
+}
+
 var densities = {};
 densities.metal = 8;
 densities.rock = 2.7;
@@ -707,13 +801,13 @@ densities.gas = 1;
 
 class Planet{
     constructor(star,parentbody,distance=1,distanceFromParent=1,index=1,mass=1,moons=[],AUSun=1,metal=0.5,rock=0.5,ice=0,gas=0){
+        this.isPlanet=true;
+        this.isStar=false;
         this.star=star;
         this.parentbody=parentbody;
-        this.distance=distance;
         this.distanceFromParent=distanceFromParent;
         this.index=index;
         this.mass=mass;
-        this.moons=moons;
         this.AUSun=AUSun;
         this.metal=metal;
         this.rock=rock;
@@ -732,27 +826,115 @@ class Planet{
         this.baseTemperature = function(){
             return 255/sqrt(AUSun)
         }
+        this.moons=moons;
     }
 }
 class Star{
-    constructor(planets=[],luma=1,temp=5778,age=4603,trueLuma=1,WD=false,isPrimary=true,parentbody){
-        this.planets=planets;
+    constructor(planets=[],luma=1,temp=5778,age=4603,trueLuma=1,WD=false,isPrimary=true,parentbody,AUSun,distanceFromParent){
+        this.isStar=true;
+        this.isPlanet=false;
         this.luma=luma;
         this.temp=temp;
         this.age=age;
+        this.mass = function() {
+            return lumaToMass(this.luma);
+        }
+        this.radius = function(){
+            return this.mass() * 696000;
+        }
         this.trueLuma=trueLuma;
         this.WD=WD;
         this.isPrimary=isPrimary;
         this.parentbody=parentbody;
+        this.mainPlanet;
+        this.AUSun=AUSun;
+        this.planets=planets;
+    }
+}
+var t = document.getElementById("jsoninput");
+async function loadSystem(){
+    const selectedFile = document.getElementById("file").files[0];
+    const systext = await selectedFile.text();
+    document.getElementById("jsoninput").value = systext;
+}
+function saveTextAsFile(textToWrite, fileNameToSaveAs)
+    {
+    	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'}); 
+    	var downloadLink = document.createElement("a");
+    	downloadLink.download = fileNameToSaveAs;
+    	downloadLink.innerHTML = "Download File";
+    	if (window.webkitURL != null)
+    	{
+    		// Chrome allows the link to be clicked
+    		// without actually adding it to the DOM.
+    		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    	}
+    	else
+    	{
+    		// Firefox requires the link to be added to the DOM
+    		// before it can be clicked.
+    		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+    		downloadLink.onclick = destroyClickedElement;
+    		downloadLink.style.display = "none";
+    		document.body.appendChild(downloadLink);
+    	}
+    
+    	downloadLink.click();
+    }
+
+function distance(object){
+    if(object.star==undefined){
+        console.log(object);
+        return object.distanceFromParent;
+    }
+
+    if(object.star.planets[0] != undefined){
+        if(object.star.planets[0].isStar && object.star.planets[0].AUSun <= 0.3){
+            return object.AUSun * Math.sqrt(object.star.luma+object.star.planets[0].luma); //calculate distance to star from AUSun
+    } else {
+        return object.AUSun * Math.sqrt(object.star.luma); //calculate distance to star from AUSun
+    }}
+    
+}
+
+function distanceFromParent(planetOutput){
+    if(planetOutput.isPlanet){
+        if(planetOutput.parentbody.isStar && distance(planetOutput) != undefined){// correct distanceFromParent for major planets
+        return distance(planetOutput); 
+    } else {
+        return planetOutput.distanceFromParent;
+    }
+    }
+    return planetOutput.AUSun * Math.sqrt(planetOutput.parentbody.luma);
+}
+
+function radius(object){
+    if (object.isStar){
+        if(!object.WD){
+            return mass(object)*696000;
+        }else{
+            return 6000;
+        }
+        
+    } else {
+        return Math.cbrt(object.mass/(density(object)/5.5))*6371
     }
 }
 
-function densityFromComposition(planet_in){
-    return 
+function mass(star){
+    return lumaToMass(star.luma);
+}
+
+function density(planet_in){
+    return (
     densities.metal*planet_in.metal + 
     densities.rock*planet_in.rock + 
     densities.ice*planet_in.ice +
-    densities.gas*planet_in.gas
+    densities.gas*planet_in.gas)
+}
+
+function baseTemperature(planet_in){
+    return 255/sqrt(planet_in.AUSun)
 }
 
 var seed = Math.floor(Math.random()*441041798642919);
@@ -787,22 +969,23 @@ function lumaToMass(luma_in){ // convert luma to mass for a...
 }
 
 function Test(){
-    var div = document.getElementsByClassName("system")[0]
+    var div = document.createElement("div");
+    div.classList.add("system");
 
-    var test_star = generateStar(0.08,8);
-    if(lumaToMass(test_star.luma)<(prng()/5)+0.08){
-        placePlanetsResonant(test_star);
-    }else{
-        placePlanetsNonResonant(test_star);
-    }
-
+    var test_star = generateStar(0.08,8,true);
     var planets = sortByDistance(test_star.planets);
     for (let z = 0; z < planets.length; z++){
-        if(planets[z] instanceof Planet){
+        if(planets[z].isPlanet){
 
         }
     }
+    
+    var div2 = document.getElementsByClassName("systemcontainer")[0];
+    div2.innerHTML = " "
+    div2.appendChild(drawSystem(div,test_star,false));
     systemDataToHTML(test_star,div);
+    div2.appendChild(div);
+    document.getElementById("jsoninput").value = (JSON.stringify(JSON.decycle(test_star, undefined),null, "\t"));
 }
 
 function FFS(a,b){
@@ -819,6 +1002,29 @@ inter_temp = inter_x;
 inter_x -= FFS(inter_temp,in_1)/OMFG(inter_temp,in_1);
 }
 return inter_x;
+}
+
+function starTemp(star){
+    var x = lumaToMass(star.luma);
+    var gx = 1000 * (-2.27852 -
+    0.0125926 * (
+        1169.13 * Math.sqrt(
+            (1107170000000 * x * x) +
+            (2251560000000 * x) + 
+            (11809900000000)
+        ) -
+        1230190000 * x -
+        1250870000
+    ) ** (1/3) + 30762 / (
+        1169.13 * Math.sqrt(
+            (1107170000000 * x * x) +
+            (2251560000000 * x) + 
+            (11809900000000)
+        ) -
+        1230190000 * x -
+        1250870000
+    ) ** (1/3));
+    return(gx);
 }
 
 function StarTemperatureFromMass(x){
@@ -848,7 +1054,8 @@ function MassFromStarTemperature(x){
  return (2.02/9)*x-0.45+((x-5)/17)**3+(x/15)**2;
 }
 
-function generateStar(massLower=0.08,massUpper=8,isPrimary=true){ // generate a star
+function generateStar(massLower=0.08,massUpper=8,isPrimary=true,canGeneratePlanets=true,parentbody){ // generate a star
+    
     var jLi = SomehowFindTheInverseOfThisDegree60Polynomial(massLower);
     var kLi = SomehowFindTheInverseOfThisDegree60Polynomial(massUpper);
     var Li = prng()*(kLi-jLi)+jLi; // mass input, assuming main sequence for now (giant stars will not be simulated)
@@ -863,7 +1070,10 @@ function generateStar(massLower=0.08,massUpper=8,isPrimary=true){ // generate a 
     massToLuma(Li2), false, // assuming the star is not a remnant for now, this will be checked later
     isPrimary
     );
-
+    if(isPrimary==false){
+        starOutput.parentbody = parentbody;
+    }
+    
     // check if star should be a remnant
     var Li3 = 12000 /* lifespan of Sun */ * Li2**-2.5
     if (starOutput.age > Li3){
@@ -871,7 +1081,36 @@ function generateStar(massLower=0.08,massUpper=8,isPrimary=true){ // generate a 
         starOutput.trueLuma = 0; // white dwarves have effectively no luminosity
         starOutput.WD = true; // the star is a white dwarf
     }
-    return starOutput; // return the generated star
+    if(isPrimary==true){
+        if(prng()>=0.75){
+        var ghi = generateStar(0.08,lumaToMass(starOutput.luma),false,false,starOutput)
+        starOutput.planets.push(
+            ghi
+        )
+        ghi.AUSun=(prng()*0.1)+0.1
+
+    }
+    if(prng()>=0.75){
+        var ghi = generateStar(0.08,lumaToMass(starOutput.luma),false,true,starOutput)
+        starOutput.planets.push(
+            ghi
+        )
+        ghi.AUSun=(prng()*75)+75
+        
+
+    }
+    }
+
+    
+    if(canGeneratePlanets==true){
+        if(lumaToMass(starOutput.luma)<(prng()/5)+0.08){
+        placePlanetsResonant(starOutput);
+    }else{
+        placePlanetsNonResonant(starOutput);
+    }
+    }
+
+    return starOutput; // return the generated star    
 }
 function generatePlanet(massLower=0.0001,massUpper=1000,AUSun,parentbody,star,distanceFromParent,index,type,isMoon=false){ // generate a planet given the specified properties; distance is in AU:sun: for convenience
     // type 0 = rocky planet (can have surface ice if beyond 2.5 AU:sun:)
@@ -887,12 +1126,21 @@ function generatePlanet(massLower=0.0001,massUpper=1000,AUSun,parentbody,star,di
         [], // no moons by default
         AUSun // AUSun value
     )
-    if(!(planetOutput.parentbody instanceof Star)){// correct AUSun for moons 
+    if(!(planetOutput.parentbody.isStar)){// correct AUSun for moons 
         planetOutput.AUSun = planetOutput.parentbody.AUSun; 
-        console.log(planetOutput.AUSun);
     }
-    planetOutput.distance = planetOutput.AUSun * Math.sqrt(planetOutput.star.luma); //calculate distance to star from AUSun
-    if(planetOutput.parentbody == planetOutput.star){// correct distanceFromParent for major planets
+    if(planetOutput.star.planets[0] != undefined){
+        if(planetOutput.star.planets[0].isStar && planetOutput.star.planets[0].AUSun <= 0.3){
+        planetOutput.distance = planetOutput.AUSun * Math.sqrt(planetOutput.star.luma+planetOutput.star.planets[0].luma); //calculate distance to star from AUSun
+    } else {
+        planetOutput.distance = planetOutput.AUSun * Math.sqrt(planetOutput.star.luma); //calculate distance to star from AUSun
+    }
+    } else { // this is first planet
+        planetOutput.distance = planetOutput.AUSun * Math.sqrt(planetOutput.star.luma);
+    }
+
+
+    if(planetOutput.parentbody.isStar){// correct distanceFromParent for major planets
         planetOutput.distanceFromParent = planetOutput.distance; 
     }
     planetOutput.mass = (
@@ -937,7 +1185,7 @@ function generatePlanet(massLower=0.0001,massUpper=1000,AUSun,parentbody,star,di
 
         } else {
          
-        var m = (kmToAU(prng()+1*(planetOutput.radius()*3)))
+        var m = (kmToAU(prng()+1*(radius(planetOutput)*3)))
         
         for (var k = 0; k < dice(1,5)+2; k++) {
             moon(planetOutput,m)
@@ -953,9 +1201,11 @@ function generatePlanet(massLower=0.0001,massUpper=1000,AUSun,parentbody,star,di
 
 
 function FirstPlanet(star){
+    
     if(lumaToMass(star.luma) <= 0.5){ // case 1: star is not large enough (<0.2 mass) to form a large planet; skip this step {depends on star}
 
     }else{ // case 2: star is large enough to form a large planet (>150 Earth masses), but no such planet forms {33%}
+        
         if(prng()<=(Math.min(lumaToMass(star.luma),1)-0.33)){  // case 3: star is large enough to form a large planet (>150 Earth masses), planet forms: {67%}
             if(prng()>=0.50){ // case 3c: no migration: {50%}
                 star.innerSystem = 0; // - inner system flag is set to 0, indicating no migration, and no orbital zones are marked invalid
@@ -969,8 +1219,9 @@ function FirstPlanet(star){
                         star.planets.length,
                         1
                     )
-                    if(!(kp.star.WD && kp.AUSun<1)){
+                    if(!((kp.star.WD && kp.AUSun<1)||hillSphere(kp.star)<distance(kp))){
                         star.planets.push(kp); // - large planet is placed between 4 and 7 AUSun
+                        star.mainPlanet = star.planets.length-1;
                     }
 
                     
@@ -990,11 +1241,13 @@ function FirstPlanet(star){
                         star.planets.length,
                         1
                     )
-                    if(!(kp.star.WD && kp.AUSun<1)){
+                    if(!((kp.star.WD && kp.AUSun<1)||hillSphere(kp.star)<distance(kp))){
                         star.planets.push(kp); // - large planet is placed between 0.1 and 0.4 AUSun
+                        star.mainPlanet = star.planets.length-1;
                     }
                 }
             } else { // case 3a: "grand tack": {25%}
+            
                 star.innerSystem = 2;  // - inner system flag is set to 2, indicating a grand tack, and meaning zones inwards of 6 AUSun are marked invalid for medium/large planets (>2 Earth masses), and zones between 2 and 6 AUSun are marked invalid for small planets, but not unterplanets
                 var kp = generatePlanet(
                     150,
@@ -1006,15 +1259,17 @@ function FirstPlanet(star){
                         star.planets.length,
                         1
                     );
-                    if(!(kp.star.WD && kp.AUSun<1)){
+                    if(!((kp.star.WD && kp.AUSun<1)||hillSphere(kp.star)<distance(kp))){
+                        
                         star.planets.push(kp); // - large planet is placed between 4 and 7 AUSun
+                        star.mainPlanet = star.planets.length-1;
                     }
                     
                 star.planets.push(  // - another large (but smaller) planet is placed between 4 and 8 AU (actual distance) out from the main large planet
                     generatePlanet(
                         75,
-                        star.planets[0].mass,
-                        star.planets[0].AUSun+((prng()*4)+4) / Math.sqrt(star.luma),
+                        star.planets[star.mainPlanet].mass,
+                        star.planets[star.mainPlanet].AUSun+((prng()*4)+4) / Math.sqrt(star.luma),
                         star,
                         star,
                         null,
@@ -1034,6 +1289,11 @@ function FirstPlanet(star){
         var orbitValid = 0; // by default
             var jk = orbitdist; // just to make sure
             for(var j = 0; j < planets.length; j++){ // go through each planet
+                if(planets[j].isPlanet){
+                    var mass = planets[j].mass;
+                }else{
+                    var mass = lumaToMass(planets[j].luma)*333000
+                }
                 var closeness = Math.abs(orbitdist*sqrt(sqrt(star.luma)) - planets[j].AUSun*sqrt(sqrt(star.luma)));
                 if(closeness < 0.15*sqrt(planets[j].mass)){ // is it a small planet quite close to a gas giant?
                     return;
@@ -1073,8 +1333,10 @@ function FirstPlanet(star){
   let sortedArr = [] // the sorted items will go here
   while (left.length && right.length) {
     // Insert the smallest item into sortedArr
-    if (left[0].distanceFromParent < right[0].distanceFromParent) {
+    if (distanceFromParent(left[0]) < distanceFromParent(right[0])) {
+       
       sortedArr.push(left.shift())
+      
     } else {
       sortedArr.push(right.shift())
     }
@@ -1095,8 +1357,8 @@ function FirstPlanet(star){
     }
 
     function determineMoonPlacement(planet){ // returns in AU
-        var outer = Math.min(hillSphere(planet)/2,planet.radius()*100);
-        var inner = kmToAU(sqrt(planet.radius()/6371)*63710)
+        var outer = Math.min(hillSphere(planet)/2,radius(planet)*100);
+        var inner = kmToAU(sqrt(radius(planet)/6371)*63710)
         if(outer/10<inner){
             return;
         }
@@ -1106,7 +1368,7 @@ function FirstPlanet(star){
             var jk = orbitdist;
             for(var j = 0; j < planets.length; j++){
 
-                var closeness = Math.abs(orbitdist - planets[j].distanceFromParent);
+                var closeness = Math.abs(orbitdist - distanceFromParent(planets[j]));
                 if(closeness < 0.15*sqrt(planets[j].mass)){
                     return;
                 }
@@ -1129,14 +1391,14 @@ function FirstPlanet(star){
     function gasGiant(star){
         AUSun = determinePlanetPlacement(star,0,3,Math.min(50*sqrt(lumaToMass(star.luma)),66));
         if(AUSun != undefined){
-            if(star.planets[0] != undefined){
-                var kp=generatePlanet(75,star.planets[0].mass,AUSun,star,star,null,star.planets.length,1);
-                if(!(kp.star.WD && kp.AUSun<1)){
+            if(star.mainPlanet != undefined){
+                var kp=generatePlanet(75,star.planets[star.mainPlanet].mass,AUSun,star,star,null,star.planets.length,1);
+                if(!(((kp.star.WD && kp.AUSun<1)||hillSphere(kp.star)<distance(kp)))){
                         star.planets.push(kp);
                     };
             } else {
                 var kp=generatePlanet(75,150,AUSun,star,star,null,star.planets.length,1);
-                if(!(kp.star.WD && kp.AUSun<1)){
+                if(!(((kp.star.WD && kp.AUSun<1)||hillSphere(kp.star)<distance(kp)))){
                         star.planets.push(kp);
                     };
             }
@@ -1146,7 +1408,7 @@ function FirstPlanet(star){
         AUSun = determinePlanetPlacement(star,0,9,Math.min(50*sqrt(lumaToMass(star.luma)),66));
         if(AUSun != undefined){
             var kp=(generatePlanet(5,50,AUSun,star,star,null,star.planets.length,2));
-            if(!(kp.star.WD && kp.AUSun<1)){
+            if(!(((kp.star.WD && kp.AUSun<1)||hillSphere(kp.star)<distance(kp)))){
                         star.planets.push(kp);
                     };
         }
@@ -1155,7 +1417,7 @@ function FirstPlanet(star){
         AUSun = determinePlanetPlacement(star,1,0.3,Math.min(50*sqrt(lumaToMass(star.luma)),66));
         if(AUSun != undefined){
             var kp=(generatePlanet(2,12,AUSun,star,star,null,star.planets.length,0));
-            if(!(kp.star.WD && kp.AUSun<1)){
+            if(!(((kp.star.WD && kp.AUSun<1)||hillSphere(kp.star)<distance(kp)))){
                         star.planets.push(kp);
                     };
         }
@@ -1167,7 +1429,7 @@ function FirstPlanet(star){
         
         if(AUSun != undefined){
             var kp=(generatePlanet(0.04,3,AUSun,star,star,null,star.planets.length,0));
-            if(!(kp.star.WD && kp.AUSun<1)){
+            if(!(((kp.star.WD && kp.AUSun<1)||hillSphere(kp.star)<distance(kp)))){
                         star.planets.push(kp);
                     };
         }
@@ -1178,7 +1440,10 @@ function FirstPlanet(star){
         }
         
         if(AUSun != undefined){
-                star.planets.push(generatePlanet(0.2,2,AUSun,star,star,null,star.planets.length,0));
+                var kp=(generatePlanet(0.2,2,AUSun,star,star,null,star.planets.length,0));
+                if(!(((kp.star.WD && kp.AUSun<1)||hillSphere(kp.star)<distance(kp)))){
+                        star.planets.push(kp);
+                    };
         }
     }
     function unterplanet(star, c1, AUSun = undefined){
@@ -1187,7 +1452,7 @@ function FirstPlanet(star){
         }
         if(AUSun != undefined){
             var kp=(generatePlanet(0.00005,0.005,AUSun,star,star,null,star.planets.length,0));
-            if(!(kp.star.WD && kp.AUSun<1)){
+            if(!(((kp.star.WD && kp.AUSun<1)||hillSphere(kp.star)<distance(kp)))){
                         star.planets.push(kp);
                     };
         }
@@ -1201,25 +1466,26 @@ function FirstPlanet(star){
         }
     }
     function placePlanetsNonResonant(star){
+        
         FirstPlanet(star);
         if(lumaToMass(star.luma)>0.2){
             for (var i = 0; i < (2)-(1+prng()); i++){
             gasGiant(star);
             }
             
-        for (var i = 0; i < (5)-(1+prng()*3); i++){
+        for (var i = 0; i < (4)-(1+prng()*2); i++){
             iceGiant(star);
         }
         }
         var c1=0;
-        if(star.planets.length > 0){
+        if(star.planets.length > 0 && sortByDistance(star.planets)[star.planets.length-1].isPlanet){
             c1=sortByDistance(star.planets)[star.planets.length-1].AUSun * YearToOrbit(3/2);
         }
 
-        for (var i = 0; i < (3)-(prng()*2); i++){
+        for (var i = 0; i < (2)-(prng()*1); i++){
             mediumPlanet(star);
         }
-        for (var i = 0; i < (8)-(prng()*7); i++){
+        for (var i = 0; i < (6)-(prng()*5); i++){
             smallPlanet(star);
         }
         for (var i = 0; i < (12)-(prng()*11); i++){
@@ -1257,14 +1523,31 @@ function FirstPlanet(star){
         return Math.cbrt(year**2)
     }
     function hillSphere(planet){
-        return (
-            planet.distanceFromParent *
+        if(planet.isPlanet){
+            return (
+                distanceFromParent(planet) *
             
             Math.cbrt(
                 planet.mass /
-                (3*(lumaToMass(planet.star.luma)*333000)-planet.mass)
+                (3*(lumaToMass(planet.star.luma)*333000)+planet.mass)
             )
-        )
+            )
+        }else{
+            if(planet.parentbody != undefined){
+                return (
+            distanceFromParent(planet) *
+            
+            Math.cbrt(
+                lumaToMass(planet.luma)*333000 /
+                (3*(lumaToMass(planet.parentbody.luma)*333000)+lumaToMass(planet.luma)*333000)
+            )
+            )
+            } else {
+                return 9999999999999999;
+            }
+
+        }
+
     }
     function kmToAU(km){
         return km/149600000
@@ -1273,28 +1556,223 @@ function FirstPlanet(star){
         return au*149600000
     }
     function placePlanetsResonant(star){
-        var m = (prng()/3)+0.3
+        var m = (prng())+0.4
         
-        for (var k = 0; k < dice(1,8)+3; k++) {
-            resonantPlanet(star,m)
+        for (var k = 0; k < dice(1,5)+3; k++) {
+            if(m<50){
+                resonantPlanet(star,m)
+            }
             var n = dice(1,3)+1
             m *= YearToOrbit((n+1)/n)
         }
     }
     
+    /* DRAW SYSTEM */
+
+
+    function drawSystem (div, star, sub = false){
+        if(sub==false){
+            canvases = document.createElement("div");
+        }
+
+        tempCanvas = document.createElement("canvas");
+        tempCanvas.setAttribute("width","3700px");
+        tempCanvas.setAttribute("height","800px");
+        var canvascontainer = document.createElement("div");
+    canvascontainer.appendChild(tempCanvas);
+    canvascontainer.setAttribute("style","position:relative;width:100%;aspect-ratio:37/13;margin-bottom:0px;margin-top:0px;");
+        jj = sortByDistance(star.planets);
+        tempCanvas.classList.add("systemdisplay");
+    var ctx = tempCanvas.getContext("2d");
+    ctx.imageSmoothingQuality="high";
+    ctx.fillStyle = "rgb(0,255,0)";
+    ctx.fillStyle = "rgb(0,255,0)";
+    drawCircle("rgb(255,255,0)",200-(radius(star)**0.33)*1,250,((radius(star)**0.33)*1),ctx); // DRAW STAR
+        var g = 0;
+        var gm = 1;
+        for(var s = 0; s < star.planets.length; s++){
+            if(jj[s].isPlanet){
+                if(s>0){
+                g += ((radius(jj[s])**0.33)*3)+((radius(jj[s-1])**0.33)*3)+((jj[s].AUSun**1)-(jj[s-1].AUSun**1))*50;
+            }else{
+                g += ((radius(jj[s])**0.33)*3)+((jj[s].AUSun**1))*50;
+            }
+            }  else {
+                if (jj[s].planets.length == 0){
+                    if(s>0){
+                g += ((radius(jj[s])**0.33)*3)+((radius(jj[s-1])**0.33)*3)+((jj[s].AUSun**1)-(jj[s-1].AUSun**1))*50;
+            }else{
+                g += ((radius(jj[s])**0.33)*3)+((jj[s].AUSun**1))*50;
+            }
+                    
+                    
+                }
+            }
+
+        }
+        var gt = g;
+        if(gt<1700){
+            gt = 1700;
+        }
+        g = 0;
+        for(var s = 0; s < star.planets.length; s++){
+            
+            if(s>0){
+                g += ((radius(jj[s])**0.33)*3)+((radius(jj[s-1])**0.33)*3)+((jj[s].AUSun**1)-(jj[s-1].AUSun**1))*50;
+            }else{
+                g += ((radius(jj[s])**0.33)*3)+((jj[s].AUSun**1))*50;
+            }
+            console.log(g);
+            
+            if(jj[s].isPlanet){
+                if(jj[s].isStar){
+                } else {
+                    drawPlanet(jj[s],g,gt,ctx,250);
+                    // DRAW PLANET
+                    if(jj[s].moons.length > 0){
+                        kk = sortByDistance(jj[s].moons);
+                        var g2 = 250+((radius(jj[s])**0.33)*2);
+                        for(var t = 0; t < jj[s].moons.length; t++){
+                            g2 += (radius(kk[t])**0.33)*3
+                            if(t>0){
+                                g2 += (radius(kk[t-1])**0.33)*3+(distanceFromParent(kk[t])-distanceFromParent(kk[t-1]));
+                            }else{
+                                g2 += 0;
+                            }
+                            drawPlanet(kk[t],g,gt,ctx,g2);
+                            // DRAW PLANET
+                        }
+                    }
+                }
+            } else {
+                if (jj[s].planets.length == 0){
+                   
+                    drawCircle("rgb(255,255,0)",(g/gt)*3300+250,250,((radius(jj[s])**0.33)*1),ctx); // DRAW STAR
+                    
+                    
+                } else {
+                    var c3 = jj[s];
+                    
+                }
+            }
+        }
+        
+        if (sub) {
+            return tempCanvas
+        } else {
+
+            
+            canvases.appendChild(tempCanvas)
+            if(c3 != undefined){
+                canvases.appendChild(drawSystem (div, c3, true))
+            }
+            console.log(canvases);
+            return canvases // list 
+        }
+    }
+
+    function drawPlanet (planet,g,gt,ctx,g2) {
+        if(planet.gas > Number.EPSILON){
+            if(planet.ice <= Number.EPSILON){
+                drawCircle("rgb(214, 161, 81)",(g/gt)*3300+250,g2,((radius(planet)**0.33)*1),ctx);
+                image(imageobjs["img/planeticons/gasGiant.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+            } else{
+                drawCircle("rgb(51, 145, 204)",(g/gt)*3300+250,g2,((radius(planet)**0.33)*1),ctx);
+                image(imageobjs["img/planeticons/iceGiant.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+            }
+        } else {
+            if(planet.ice <= Number.EPSILON){
+                drawCircle("rgb(143, 135, 124)",(g/gt)*3300+250,g2,((radius(planet)**0.33)*1),ctx);
+                image(imageobjs["img/planeticons/rockyPlanet.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+            } else{
+                drawCircle("rgb(169, 201, 214)",(g/gt)*3300+250,g2,((radius(planet)**0.33)*1),ctx);
+                image(imageobjs["img/planeticons/icyPlanet.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+            }
+        }
+    }
+    /*
+    function drawSystem (div, star, sub = false){
+        tempCanvas = new canvas
+        canvases = []
+
+        for (everything orbiting the main star) {
+    
+            is it a planet? {
+                draw the planet (each planet is the distance of the previous planet + constant value + difference between their actual orbital distances, logarithmic)
+                for (everything orbiting the planet) { // it's not a star; we're not in medieval Europe
+                    draw the moon (moons follow a similar formula, but vertical, and down from the planet)
+                }
+            }
+            is it a star? {
+                does the star have planets? {
+                canvases.push(drawSystem (same div, orbiting star, true))
+                } else {
+                 just draw the star smh
+                }
+            }
+        }
+            
+        if (sub) {
+            return tempCanvas
+        } else {
+            canvases.push(tempCanvas)
+            return canvases // list 
+        }
+    }
+        */
+
+
+
+
+
+
+
+
+
+
      /* OUTPUT TEXT TO DIV */
 
     var composition
-    
+    var field = document.getElementById("jsoneditor");
+    function toggleJSONEditor(){
+        
+        if(field.style.display == "none"){
+            field.style.display = "block";
+        } else {
+            field.style.display = "none";
+        }
 
+    }
+
+    function updateSystem(){
+        try {
+        var div = document.createElement("div");
+    div.classList.add("system");
+    var test_star = JSON.retrocycle(JSON.parse(document.getElementById("jsoninput").value))
+    
+    var div2 = document.getElementsByClassName("systemcontainer")[0];
+    div2.innerHTML = " "
+    div2.appendChild(drawSystem(div,test_star,false));
+    systemDataToHTML(test_star,div);
+    div2.appendChild(div);
+} catch (error){
+    var div2 = document.getElementsByClassName("systemcontainer")[0];
+     div2.innerHTML = " "
+    var div = document.createElement("div");
+    div.classList.add("system");
+    div.innerHTML = "<p>Whoopsie! Something didn't work. Have you checked that your JSON is correct? If so, then it might be an issue with the app - notify me!</p> <hr> <p>Error: <span class='red'>"+error.message+"</span></p>"
+    div2.appendChild(div);
+}
+    }
 
      function systemDataToHTML(system,div){
         div.innerHTML = ""
+        
         parseObjectData(system,div);
      }
      function parseObjectData(system,div){
-        if(system instanceof Star){
-            addline("<img class='icon2 whiteicon' src='img/iconClassG.png'>STAR: SALIBE",div,"h3",true);
+        if(system.isStar){
+            addline("<img class='icon2 whiteicon' src='img/iconClassG.png'>STAR: BEPIS",div,"h3",true);
             if(system.WD){
                 var l1 = lumaToMass(system.luma);
                 addline("White dwarf (mass: "+l1.toFixed(2)+"x Sun)",div,"p",true);
@@ -1316,34 +1794,46 @@ function FirstPlanet(star){
                     addline("Spectral type: <span class='typeb'>B</span> (mass: "+l1.toFixed(2)+"x Sun)",div,"p",true);
                 }
                 addline("Luminosity: " +system.luma.toFixed(5)+"x that of the Sun",div,"p",true);
-
+                addline("Temperature: " +starTemp(system).toFixed(5)+" K",div,"p",true);
             }
             addline("Age: " +(system.age/1000).toFixed(2)+" billion years",div,"p",true);
-
+            if(system.AUSun != undefined ){
+                addline("<img class='icon whiteicon' src='img/iconDistance.png'> Distance from star: " + distanceFromParent(system).toFixed(5) + " AU ("+ system.AUSun.toFixed(3)+" AU☉)",div,"p",true)
+            }
             for(let z1 = 0; z1 < system.planets.length; z1++){
                 var div2 = document.createElement("div");
             div2.classList.add("system2");
             div.appendChild(div2)
                 parseObjectData(sortByDistance(system.planets)[z1],div2);
             }
-        } else if (system instanceof Planet){
-            if(system.parentbody instanceof Star && system.mass >= 0.01){
+        } else if (system.isPlanet){
+            if(system.parentbody.isStar && system.mass >= 0.01){
                 addline("<img class='icon2 whiteicon' src='img/iconUberplanet.png'>MAJOR PLANET: SALIBE",div,"h3",true);
-                addline("<img class='icon whiteicon' src='img/iconDistance.png'> Distance from star: " + system.distanceFromParent.toFixed(5) + " AU ("+ system.AUSun.toFixed(3)+" AU☉)",div,"p",true)
-                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Year: " + (OrbitToYear(system.distanceFromParent,lumaToMass(system.parentbody.luma))*365) + " days",div,"p",true)
-            } else if(!(system.parentbody instanceof Star)){
+                addline("<img class='icon whiteicon' src='img/iconDistance.png'> Distance from star: " + distanceFromParent(system).toFixed(5) + " AU ("+ system.AUSun.toFixed(3)+" AU☉)",div,"p",true)
+                if(system.parentbody.planets[0].isStar && system.parentbody.planets[0].AUSun <= 0.3){
+                    var carykh = lumaToMass(system.parentbody.luma)+lumaToMass(system.parentbody.planets[0].luma)
+                } else {
+                    var carykh = lumaToMass(system.parentbody.luma)
+                }
+                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Year: " + (OrbitToYear(distanceFromParent(system),carykh)*365) + " days",div,"p",true)
+            } else if(!(system.parentbody.isStar)){
                 addline("<img class='icon2 whiteicon' src='img/iconSatellite.png'>SATELLITE PLANET: SALIBE",div,"h3",true);
-                addline("<img class='icon whiteicon' src='img/iconDistance.png'> Distance from planet: " + system.distanceFromParent.toFixed(5) + " AU",div,"p",true)
-                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Month: " + (OrbitToYear(system.distanceFromParent,system.parentbody.mass/333000)*365) + " days",div,"p",true)
+                addline("<img class='icon whiteicon' src='img/iconDistance.png'> Distance from planet: " + distanceFromParent(system).toFixed(5) + " AU",div,"p",true)
+                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Month: " + (OrbitToYear(distanceFromParent(system),system.parentbody.mass/333000)*365) + " days",div,"p",true)
             } else {
                 addline("<img class='icon2 whiteicon' src='img/iconUnterplanet.png'>DWARF PLANET: SALIBE",div,"h3",true);
-                addline("<img class='icon whiteicon' src='img/iconDistance.png'> Distance from star: " + system.distanceFromParent.toFixed(5) + " AU ("+ system.AUSun.toFixed(3)+" AU☉)",div,"p",true)
-                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Year: " + (OrbitToYear(system.distanceFromParent,lumaToMass(system.parentbody.luma))*365) + " days",div,"p",true)
+                addline("<img class='icon whiteicon' src='img/iconDistance.png'> Distance from star: " + distanceFromParent(system).toFixed(5) + " AU ("+ system.AUSun.toFixed(3)+" AU☉)",div,"p",true)
+                if(system.parentbody.planets[0].isStar && system.parentbody.planets[0].AUSun <= 0.3){
+                    var carykh = lumaToMass(system.parentbody.luma)+lumaToMass(system.parentbody.planets[0].luma)
+                } else {
+                    var carykh = lumaToMass(system.parentbody.luma)
+                }
+                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Year: " + (OrbitToYear(distanceFromParent(system),carykh)*365) + " days",div,"p",true)
             }
             addline("<img class='icon whiteicon' src='img/iconMass.png'> Mass: " + system.mass.toFixed(6) +  "x Earth",div,"p",true)
-            addline("<img class='icon whiteicon' src='img/iconRadius.png'> Radius: " + system.radius().toFixed(1) + " km (" + (system.radius()/6371).toFixed(3)+"x Earth)",div,"p",true)
-            addline("<img class='icon whiteicon' src='img/iconComposition.png'> Density: " + system.density().toFixed(1) +  "g/cm³",div,"p",true)
-            addline("<img class='icon whiteicon' src='img/iconGravity.png'> Surface gravity: " + ((system.mass*9.8)/((system.radius()/6371)**2)).toFixed(1) +  " m/s²",div,"p",true)
+            addline("<img class='icon whiteicon' src='img/iconRadius.png'> Radius: " + radius(system).toFixed(1) + " km (" + (radius(system)/6371).toFixed(3)+"x Earth)",div,"p",true)
+            addline("<img class='icon whiteicon' src='img/iconComposition.png'> Density: " + density(system).toFixed(1) +  "g/cm³",div,"p",true)
+            addline("<img class='icon whiteicon' src='img/iconGravity.png'> Surface gravity: " + ((system.mass*9.8)/((radius(system)/6371)**2)).toFixed(1) +  " m/s²",div,"p",true)
             if(system.gas > 0){
                 if(system.ice > 0){
                     addline("<img class='icon whiteicon' src='img/iconComposition.png'> Is a <img class='icon' src='img/iconIceGiant.png'> <span class='icegiant'> ice giant</span> ("+(system.gas*100).toFixed(0)+"% gas, "+(system.ice*100).toFixed(0)+"% ice, "+(system.rock*100).toFixed(0)+"% rock, "+(system.metal*100).toFixed(0)+"% metal)",div,"p",true)
@@ -1361,25 +1851,25 @@ function FirstPlanet(star){
                     }
                 }
             }
-            if(system.baseTemperature()<100){
-                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp1.png'><span class='purple'>" + system.baseTemperature().toFixed(0) + " Kelvin ("+ (system.baseTemperature()-273).toFixed(0) + " Celsius)</span>",div,"p",true)
+            if(baseTemperature(system)<100){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp1.png'><span class='purple'>" + baseTemperature(system).toFixed(0) + " Kelvin ("+ (baseTemperature(system)-273).toFixed(0) + " Celsius)</span>",div,"p",true)
             } else
-            if(system.baseTemperature()<173){
-                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp2.png'><span class='blue'>" + system.baseTemperature().toFixed(0) + " Kelvin ("+ (system.baseTemperature()-273).toFixed(0) + " Celsius)</span>",div,"p",true)
+            if(baseTemperature(system)<173){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp2.png'><span class='blue'>" + baseTemperature(system).toFixed(0) + " Kelvin ("+ (baseTemperature(system)-273).toFixed(0) + " Celsius)</span>",div,"p",true)
             } else
-            if(system.baseTemperature()<250){
-                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp3.png'><span class='lightblue'>" + system.baseTemperature().toFixed(0) + " Kelvin ("+ (system.baseTemperature()-273).toFixed(0) + " Celsius)</span>",div,"p",true)
+            if(baseTemperature(system)<250){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp3.png'><span class='lightblue'>" + baseTemperature(system).toFixed(0) + " Kelvin ("+ (baseTemperature(system)-273).toFixed(0) + " Celsius)</span>",div,"p",true)
             }  else
-            if(system.baseTemperature()<320){
-                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp4.png'><span class='lightgreen'>" + system.baseTemperature().toFixed(0) + " Kelvin ("+ (system.baseTemperature()-273).toFixed(0) + " Celsius)</span>",div,"p",true)
+            if(baseTemperature(system)<320){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp4.png'><span class='lightgreen'>" + baseTemperature(system).toFixed(0) + " Kelvin ("+ (baseTemperature(system)-273).toFixed(0) + " Celsius)</span>",div,"p",true)
             }else
-            if(system.baseTemperature()<400){
-                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp5.png'><span class='yellow'>" + system.baseTemperature().toFixed(0) + " Kelvin ("+ (system.baseTemperature()-273).toFixed(0) + " Celsius)</span>",div,"p",true)
+            if(baseTemperature(system)<400){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp5.png'><span class='yellow'>" + baseTemperature(system).toFixed(0) + " Kelvin ("+ (baseTemperature(system)-273).toFixed(0) + " Celsius)</span>",div,"p",true)
             }else
-            if(system.baseTemperature()<550){
-                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp6.png'><span class='orange'>" + system.baseTemperature().toFixed(0) + " Kelvin ("+ (system.baseTemperature()-273).toFixed(0) + " Celsius)</span>",div,"p",true)
+            if(baseTemperature(system)<550){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp6.png'><span class='orange'>" + baseTemperature(system).toFixed(0) + " Kelvin ("+ (baseTemperature(system)-273).toFixed(0) + " Celsius)</span>",div,"p",true)
             }else {
-                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp7.png'><span class='red'>" + system.baseTemperature().toFixed(0) + " Kelvin ("+ (system.baseTemperature()-273).toFixed(0) + " Celsius)</span>",div,"p",true)
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp7.png'><span class='red'>" + baseTemperature(system).toFixed(0) + " Kelvin ("+ (baseTemperature(system)-273).toFixed(0) + " Celsius)</span>",div,"p",true)
             }
             
             if(system.moons.length >= 0){
@@ -1438,6 +1928,9 @@ function drawCircle(color,x,y,radius,ctx){
         ctx.arc(x,y,radius,0,6.28);
         ctx.fill();
         ctx.closePath();
+}
+function image(img,x,y,scale,ctx){
+    ctx.drawImage(img,x-(scale/2),y-(scale/2),scale,scale);
 }
 function Test2(){
     var canvas = document.createElement("canvas");
@@ -1509,9 +2002,192 @@ function generateSystem(){
     return(test_star);
 }
 
+document.addEventListener('DOMContentLoaded', Initialize);
+
+/* CYCLE.JS */
+
+/*
+    cycle.js
+    2021-05-31
+
+    Public Domain.
+
+    NO WARRANTY EXPRESSED OR IMPLIED. USE AT YOUR OWN RISK.
+
+    This code should be minified before deployment.
+    See https://www.crockford.com/jsmin.html
+
+    USE YOUR OWN COPY. IT IS EXTREMELY UNWISE TO LOAD CODE FROM SERVERS YOU DO
+    NOT CONTROL.
+*/
+
+// The file uses the WeakMap feature of ES6.
+
+/*jslint eval */
+
+/*property
+    $ref, decycle, forEach, get, indexOf, isArray, keys, length, push,
+    retrocycle, set, stringify, test
+*/
+
+if (typeof JSON.decycle !== "function") {
+    JSON.decycle = function decycle(object, replacer) {
+        "use strict";
+
+// Make a deep copy of an object or array, assuring that there is at most
+// one instance of each object or array in the resulting structure. The
+// duplicate references (which might be forming cycles) are replaced with
+// an object of the form
+
+//      {"$ref": PATH}
+
+// where the PATH is a JSONPath string that locates the first occurance.
+
+// So,
+
+//      var a = [];
+//      a[0] = a;
+//      return JSON.stringify(JSON.decycle(a));
+
+// produces the string '[{"$ref":"$"}]'.
+
+// If a replacer function is provided, then it will be called for each value.
+// A replacer function receives a value and returns a replacement value.
+
+// JSONPath is used to locate the unique object. $ indicates the top level of
+// the object or array. [NUMBER] or [STRING] indicates a child element or
+// property.
+
+        var objects = new WeakMap();     // object to path mappings
+
+        return (function derez(value, path) {
+
+// The derez function recurses through the object, producing the deep copy.
+
+            var old_path;   // The path of an earlier occurance of value
+            var nu;         // The new object or array
+
+// If a replacer function was provided, then call it to get a replacement value.
+
+            if (replacer !== undefined) {
+                value = replacer(value);
+            }
+
+// typeof null === "object", so go on if this value is really an object but not
+// one of the weird builtin objects.
+
+            if (
+                typeof value === "object"
+                && value !== null
+                && !(value instanceof Boolean)
+                && !(value instanceof Date)
+                && !(value instanceof Number)
+                && !(value instanceof RegExp)
+                && !(value instanceof String)
+            ) {
+
+// If the value is an object or array, look to see if we have already
+// encountered it. If so, return a {"$ref":PATH} object. This uses an
+// ES6 WeakMap.
+
+                old_path = objects.get(value);
+                if (old_path !== undefined) {
+                    return {$ref: old_path};
+                }
+
+// Otherwise, accumulate the unique value and its path.
+
+                objects.set(value, path);
+
+// If it is an array, replicate the array.
+
+                if (Array.isArray(value)) {
+                    nu = [];
+                    value.forEach(function (element, i) {
+                        nu[i] = derez(element, path + "[" + i + "]");
+                    });
+                } else {
+
+// If it is an object, replicate the object.
+
+                    nu = {};
+                    Object.keys(value).forEach(function (name) {
+                        nu[name] = derez(
+                            value[name],
+                            path + "[" + JSON.stringify(name) + "]"
+                        );
+                    });
+                }
+                return nu;
+            }
+            return value;
+        }(object, "$"));
+    };
+}
 
 
+if (typeof JSON.retrocycle !== "function") {
+    JSON.retrocycle = function retrocycle($) {
+        "use strict";
 
+// Restore an object that was reduced by decycle. Members whose values are
+// objects of the form
+//      {$ref: PATH}
+// are replaced with references to the value found by the PATH. This will
+// restore cycles. The object will be mutated.
+
+// The eval function is used to locate the values described by a PATH. The
+// root object is kept in a $ variable. A regular expression is used to
+// assure that the PATH is extremely well formed. The regexp contains nested
+// * quantifiers. That has been known to have extremely bad performance
+// problems on some browsers for very long strings. A PATH is expected to be
+// reasonably short. A PATH is allowed to belong to a very restricted subset of
+// Goessner's JSONPath.
+
+// So,
+//      var s = '[{"$ref":"$"}]';
+//      return JSON.retrocycle(JSON.parse(s));
+// produces an array containing a single element which is the array itself.
+
+        var px = /^\$(?:\[(?:\d+|"(?:[^\\"\u0000-\u001f]|\\(?:[\\"\/bfnrt]|u[0-9a-zA-Z]{4}))*")\])*$/;
+
+        (function rez(value) {
+
+// The rez function walks recursively through the object looking for $ref
+// properties. When it finds one that has a value that is a path, then it
+// replaces the $ref object with a reference to the value that is found by
+// the path.
+
+            if (value && typeof value === "object") {
+                if (Array.isArray(value)) {
+                    value.forEach(function (element, i) {
+                        if (typeof element === "object" && element !== null) {
+                            var path = element.$ref;
+                            if (typeof path === "string" && px.test(path)) {
+                                value[i] = eval(path);
+                            } else {
+                                rez(element);
+                            }
+                        }
+                    });
+                } else {
+                    Object.keys(value).forEach(function (name) {
+                        var item = value[name];
+                        if (typeof item === "object" && item !== null) {
+                            var path = item.$ref;
+                            if (typeof path === "string" && px.test(path)) {
+                                value[name] = eval(path);
+                            } else {
+                                rez(item);
+                            }
+                        }
+                    });
+                }
+            }
+        }($));
+        return $;
+    };
+}
 
 
 
