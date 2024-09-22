@@ -682,7 +682,7 @@ input:checked + .slider:before {
         <body>
             <div class="navbar">
             <img class="titleimg" src="img/titleimg.png">
-            <h1> v0.4021 Eridanus </h1>
+            <h1> v0.4022 Eridanus </h1>
             <hr>
             <h3 class="patchnotes">System Generation</h3>
         
@@ -695,13 +695,14 @@ input:checked + .slider:before {
             <button onClick="Test();" class="genbutton2">Generate!</button>
             <p class="patchnotes">Seed (leave blank to use random seed)</p>
             <input type="text" class="genbutton3" style="text-align:center;" placeholder="Seed (blank to use random seed)" id="seedinput">
-            <p class="patchnotes">Force terrestrial planet</p>
+            <p class="patchnotes">Force habitable planet</p>
             <label class="switch patchnotes">
                 <input type="checkbox" id="forceTerrestrialPlanet">
                 <span class="slider round patchnotes"></span>
             </label>
             <p class="patchnotes">Chance of life on habitable planets (0 = never, 1 = always)</p>
             <input type="text" class="genbutton3" style="text-align:center;" placeholder="Number of systems to generate" value="0.8" id="lifeChance">
+            <a href="https://github.com/Vector-Graphics/periapsis/wiki/How-To-Customize-a-Periapsis-System" class="patchnotes" target="_blank" rel="noopener noreferrer"><p>Learn how to make your own systems! (Link)</p></a>
             <!--<p></p>
 
             <p></p>
@@ -718,6 +719,9 @@ input:checked + .slider:before {
             <div class="infocontainer" style="overflow-y:scroll; height:500px;">
          
                 <h1 class="patchnotes"> PATCHNOTES</h1>
+                <h3 class="patchnotes">0.4022 beta</h3>
+                <p class="patchnotes">- added link to the new custom system guide</p>
+                <p class="patchnotes">- renamed "Force terrestrial planet" to "Force habitable planet" to make it clearer what it does</p>
                 <h3 class="patchnotes">0.4021 beta | Eridanus</h3>
                 <p class="patchnotes">- added atmosphere and temperature simulation!</p>
                 <p class="patchnotes">- added surface liquids</p>  
@@ -761,7 +765,7 @@ input:checked + .slider:before {
                 <p class="patchnotes">A measurement of received stellar energy that scales proportionally to the distance from the star. In short, it's how far Earth would need to be from the star to receive the same amount of energy it does from the Sun IRL.</p>
                 <h3 class="patchnotes">What's a seed?</h3>
         <p class="patchnotes">A seed is the base number the app uses to generate a system. The same seed always gives the same generated system, assuming the chance for life and whether to skip non-habitable systems are set the same.
-            For example, the seed 69420 on v0.4021, if "force terrestrial planet" is set and the value 0.69 is used for the chance of life appearing on a habitable planet, yields a system with a civ homeworld.
+            For example, the seed 69420 on v0.4021, if "force habitable planet" is set and the value 0.69 is used for the chance of life appearing on a habitable planet, yields a system with a civ homeworld.
         </p>
         <h3 class="patchnotes">Why aren't there any planets with oxygen?</h3>
         <p class="patchnotes">The atmosphere composition entry only lists the gas that makes up the majority of the atmosphere. Oxygen can be inferred based on the presence of Phanerozoic life. However, I don't really see the significance of a planet's atmosphere having oxygen.</p>
@@ -1413,7 +1417,7 @@ function MassFromStarTemperature(x){
 }
 
 function generateStar(massLower=0.08,massUpper=8,isPrimary=true,canGeneratePlanets=true,parentbody){ // generate a star
-    
+    console.log(massToLuma(8));
     var jLi = SomehowFindTheInverseOfThisDegree60Polynomial(massLower);
     var kLi = SomehowFindTheInverseOfThisDegree60Polynomial(massUpper);
     var Li = prng()*(kLi-jLi)+jLi; // mass input, assuming main sequence for now (giant stars will not be simulated)
