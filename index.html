@@ -262,8 +262,10 @@
             border-radius: var(--borderradiusdf);
             cursor: pointer;
             transition: 0.15s;
-            height: 80px;
+            height: auto;
+            
             box-shadow: inset -8px -8px 16px  var(--innershadowcolorb);
+            text-wrap:nowrap
         }
         .genbutton3 {
             background: var(--insetcolor);
@@ -281,7 +283,7 @@
             border-radius: var(--borderradiusdf);
             cursor: text;
             transition: 0.15s;
-            height: 80px;
+            height: auto;
             box-shadow: inset -8px -8px 16px  var(--innershadowcolorb);
         }
         .genbutton:hover {
@@ -610,7 +612,68 @@
         font-family: 'Consolas', 'Courier New', Courier, monospace;
         
     }
-        
+    .switch {
+  position: relative;
+  display: block;
+  margin: auto;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right:0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+} 
         
     </style>
   </head>
@@ -619,25 +682,35 @@
         <body>
             <div class="navbar">
             <img class="titleimg" src="img/titleimg.png">
-            <h1> v0.4011 Gemini </h1>
+            <h1> v0.4021 Eridanus </h1>
             <hr>
             <h3 class="patchnotes">System Generation</h3>
         
             <!--<p class="patchnotes">Number of systems to generate</p>
-            <input type="text" class="genbutton3" style="text-align:center;" placeholder="Number of systems to generate" value="1" id="numsystemsInput">
+            
             <p></p>
             <button onClick="GenerateSector(document.getElementById('numsystemsInput').value);" disabled="disabled" class="genbutton2">Generate!</button>
             <p></p>-->
-            <button onClick="Test();" class="genbutton2">Generate system</button>
-            <!--<p></p>
+
+            <button onClick="Test();" class="genbutton2">Generate!</button>
             <p class="patchnotes">Seed (leave blank to use random seed)</p>
             <input type="text" class="genbutton3" style="text-align:center;" placeholder="Seed (blank to use random seed)" id="seedinput">
+            <p class="patchnotes">Force terrestrial planet</p>
+            <label class="switch patchnotes">
+                <input type="checkbox" id="forceTerrestrialPlanet">
+                <span class="slider round patchnotes"></span>
+            </label>
+            <p class="patchnotes">Chance of life on habitable planets (0 = never, 1 = always)</p>
+            <input type="text" class="genbutton3" style="text-align:center;" placeholder="Number of systems to generate" value="0.8" id="lifeChance">
+            <!--<p></p>
+
             <p></p>
             <p class="patchnotes">Systems generated:</p>
             <p class="progress patchnotes"></p>-->
             <hr>
             <p></p>
             <h3 class="patchnotes">Other</h3>
+            <p class="patchnotes">Calculators</p>
             <!--<button onClick="switchTheme();" class="genbutton">Switch theme</button>-->
             <p></p>
             <hr>
@@ -645,24 +718,33 @@
             <div class="infocontainer" style="overflow-y:scroll; height:500px;">
          
                 <h1 class="patchnotes"> PATCHNOTES</h1>
-                <h3 class="patchnotes">0.4011 | Gemini: </h3>
+                <h3 class="patchnotes">0.4021 beta | Eridanus</h3>
+                <p class="patchnotes">- added atmosphere and temperature simulation!</p>
+                <p class="patchnotes">- added surface liquids</p>  
+                <p class="patchnotes">- added geological activity and life</p>  
+                <p class="patchnotes">- civs added, and are now more common the older the planet is, as a simulation of the 'sapiozoic' phenomenon theorized by Leriendil where civilizational influence 'builds up' on the planet over time</p> 
+                <p class="patchnotes">- added seeds (pseudorandom generation) (unrelated to seeds (botany)) - system's seed is now logged to console</p> 
+                <p class="patchnotes">- added a tickbox to force the generation of systems with habitable worlds</p>
+                <p class="patchnotes">- greatly improved visuals for planets</p>
+                <p class="patchnotes">- added random name generation (the same as walkersysgen), Salibe is now the placeholder name for when a planet is unnamed</p>
+                <p class="patchnotes">- buttons made a lot more compact</p>
+                <p class="patchnotes">- fixed years</p>
+                <h3 class="patchnotes">0.4011 alpha | Gemini: </h3>
                 <p class="patchnotes">- system diagrams! (Shows all current info on each planet)</p>
                 <p class="patchnotes">- binary and even triple stars!</p>
                 <p class="patchnotes">- full JSON editing, customization, download and upload support (ripped from the original walkersysgen)</p>
                 <p class="patchnotes">- no longer in pre-alpha</p>
-            <h3 class="patchnotes">v0.4001 | Orion:</h3>
+            <h3 class="patchnotes">v0.4001 alpha | Orion:</h3>
             <p class="patchnotes">- pre-alpha generator released</p>
             <p class="patchnotes">- doesn't even have a system diagram yet smh</p>
             <p class="patchnotes">- and all the planets are named Salibe, what kinda generator is this</p>
             <hr>
-            <h1 class="patchnotes"> COMING SOON</h1>
-            <h3 class="patchnotes">0.4021 | Eridanus - planned features: </h3>
-            <p class="patchnotes">- atmospheres, greenhouse effect, and temperature simulation</p>
-            <p class="patchnotes">- surface liquids and life</p>    
+            <h1 class="patchnotes"> COMING SOON</h1>  
             <h3 class="patchnotes">0.4031 | Horologium - planned features: </h3>
             <p class="patchnotes">- planetary rings</p>
             <p class="patchnotes">- rotation periods and tidal locking</p>
             <p class="patchnotes">- binary planets and unterplanets</p>   
+            <p class="patchnotes">- hopefully full release of 0.5 at this point, depends on what I remember to add</p>   
             </div>
             <p></p>
             <div class="infocontainer" style="overflow-y:scroll; height:500px;">
@@ -675,6 +757,14 @@
                 <p class="patchnotes">It's literally just a JSON file, labeled SOLAR in order to mark that it's a solar system for Periapsis.</p>
                 <h3 class="patchnotes">Will we be able to migrate systems from WSSG?</h3>
                 <p class="patchnotes">Probably not. It's not on the roadmap currently, at least.</p>
+                <h3 class="patchnotes">What's an AU☉?</h3>
+                <p class="patchnotes">A measurement of received stellar energy that scales proportionally to the distance from the star. In short, it's how far Earth would need to be from the star to receive the same amount of energy it does from the Sun IRL.</p>
+                <h3 class="patchnotes">What's a seed?</h3>
+        <p class="patchnotes">A seed is the base number the app uses to generate a system. The same seed always gives the same generated system, assuming the chance for life and whether to skip non-habitable systems are set the same.
+            For example, the seed 69420 on v0.4021, if "force terrestrial planet" is set and the value 0.69 is used for the chance of life appearing on a habitable planet, yields a system with a civ homeworld.
+        </p>
+        <h3 class="patchnotes">Why aren't there any planets with oxygen?</h3>
+        <p class="patchnotes">The atmosphere composition entry only lists the gas that makes up the majority of the atmosphere. Oxygen can be inferred based on the presence of Phanerozoic life. However, I don't really see the significance of a planet's atmosphere having oxygen.</p>
             </div>
             <p></p>
         
@@ -687,10 +777,10 @@
         'isStar': true,
         'isPlanet': false, ..." id="jsoninput"></textarea>
                     <div>
-                        <button onClick="updateSystem();" class="genbutton" style="width:20%; display:inline">Update system</button>
-                        <button onClick="saveTextAsFile(t.value,'system.solar');" class="genbutton" style="width:20%; display:inline">Download SOLAR file</button>
-                        <input type="button" id="loadFile" class="genbutton" style="width:20%; display:inline; text-align:center; text-wrap:wrap;" value="Choose SOLAR file" onclick="document.getElementById('file').click();" />
-                        <button onClick="loadSystem();" class="genbutton">Load selected SOLAR file</button>
+                        <button onClick="updateSystem();" class="genbutton" style="width:350px; display:inline">Update system</button>
+                        <button onClick="saveTextAsFile(t.value,'system.solar');" class="genbutton" style="width:350px; display:inline">Download SOLAR file</button>
+                        <input type="button" id="loadFile" class="genbutton" style="width:350px; display:inline; text-align:center; text-wrap:wrap;" value="Choose SOLAR file" onclick="document.getElementById('file').click();" />
+                        <button onClick="loadSystem();" class="genbutton" style="width:350px; display:inline; text-align:center; text-wrap:wrap;">Load selected SOLAR file</button>
                         <input type="file" style="display:none;" id="file" name="file"/>
                     </div>
                     
@@ -710,6 +800,60 @@
             <p></p>
     </main>
 	<script>
+        var consonants = [
+    "m", "t", "c", "b", "k", "l", "r", "n", "v", "th", "f", "j", "p", "d", "g", "st", "m", "t", "c", "b", "k", "l", "n", "v", "th", "f", "j", "p", "d", "g", "st", "rh", "br", "tr", "", "pl", "s", "sh", "sc", "h", "ch", "ph", "gl", "fl", "cl", "bl", "sch", "", "", "", "", ""
+]
+var vowels = [
+    "a", "e", "i", "o", "u",
+]
+var glides = [
+    "r", "", ""
+]
+function syllable(){
+    if(prng() >= 0.5){
+        return consonants[dice(1,consonants.length)]+vowels[dice(1,vowels.length)]+glides[dice(1,glides.length)];
+    }else{
+        return namepenul[dice(1,namepenul.length)];
+    }
+    
+    
+}
+var nameparts = [
+    "mer", "tar", "mar", "cur", "mur", "cer", "ter", "bur", "ber", "bir", "cir", "ker", "cu", "la", "lar", "bar", "ba", "me", "ry", "re", "ro", "ra", "nu", "ve", "va", "var", "ra", "ce", "re", "sa", "tha", "fa", "tur", "ju", "pi", "da", "i", "o", "pa", "par", "ga", "ny", "cal", "li", "sto", "la", "ti", "ta", "te", "thy", "di", "rhe", "a", "pe", "tu", "ri", "bri", "ni", "be", "ro", "tri", "to", "u", "ra", "e", "ne", "p", "tu", "ne", "plu", "ri", "ma", "ke", "qua", "ar", "se", "na", "tasci", "ti", "sci", "fer", "n", "lar", "sta", "ste", "re", "plo", "cha", "ro", "bi", "mo", "ho", "du", "na", "mi", "mu", "ty", "lo", "bor",  
+]
+var namepenul = [
+"mer", "tar", "mar", "cur", "mur", "cer", "ter", "bur", "ber", "bir", "cir", "ker", "cu", "la", "lar", "bar", "ba", "me", "ry", "re", "ro", "ra", "nu", "ve", "va", "var", "ra", "ce", "re", "sa", "tha", "fa", "tur", "ju", "pi", "da", "i", "o", "pa", "par", "ga", "ny", "cal", "li", "sto", "la", "ti", "ta", "te", "thy", "di", "rhe", "a", "pe", "tu", "ri", "bri", "ni", "be", "ro", "tri", "to", "u", "ra", "e", "ne", "tu", "ne", "plu", "ri", "ma", "ke", "qua", "ar", "se", "na", "tasci", "ti", "sci", "fer", "lar", "sta", "ste", "re", "plo", "cha", "ro", "bi", "mo", "ho", "du", "na", "mi", "mu", "ty", "lo", "bor", 
+]
+var nameends = [
+    "s", "", "", "n", "t"
+]
+
+function toTitleCase(str) {
+  return str.replace(
+    /\w\S*/g,
+    text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+  );
+}
+
+function generatePlanetName() {
+    var tmp3;
+    if(prng()>=0.5){
+        if(prng()>=0.5){
+            if(prng()>=0.3){
+                tmp3 = (syllable()+syllable()+nameends[dice(1,nameends.length)]);
+    } else {
+        tmp3 = (syllable()+syllable()+syllable()+syllable()+nameends[dice(1,nameends.length)]);
+    }
+            
+    } else {
+        tmp3 = (syllable()+syllable()+syllable()+nameends[dice(1,nameends.length)]);
+    }
+    } else {
+        tmp3 = (syllable()+syllable()+nameends[dice(1,nameends.length)]);
+    }
+    return tmp3;
+}
+
 var imgsrcs =[
     "img/ATM_carbo.png",
     "img/staricons/typea.png",
@@ -803,6 +947,7 @@ class Planet{
     constructor(star,parentbody,distance=1,distanceFromParent=1,index=1,mass=1,moons=[],AUSun=1,metal=0.5,rock=0.5,ice=0,gas=0){
         this.isPlanet=true;
         this.isStar=false;
+        this.name="Salibe";
         this.star=star;
         this.parentbody=parentbody;
         this.distanceFromParent=distanceFromParent;
@@ -813,6 +958,17 @@ class Planet{
         this.rock=rock;
         this.ice=ice;
         this.gas=gas;
+        this.magneticField=false;
+        this.atmothickness=0;
+        this.atmobasegas="none";
+        this.greenhouseEffect=1;
+        this.liquid=-1;
+        this.geoactive=false;
+        this.life=0;
+        this.lifeLocation="subglacial";
+        this.civ=false;
+        
+        this.liquidCoverage = 0;
         this.density = function(){
             return (
     densities.metal*this.metal + 
@@ -884,7 +1040,7 @@ function saveTextAsFile(textToWrite, fileNameToSaveAs)
 
 function distance(object){
     if(object.star==undefined){
-        console.log(object);
+        
         return object.distanceFromParent;
     }
 
@@ -934,7 +1090,30 @@ function density(planet_in){
 }
 
 function baseTemperature(planet_in){
-    return 255/sqrt(planet_in.AUSun)
+    if(planet_in.star.WD){
+        if(planet_in.star.parentbody != undefined){
+            if(distanceFromParent(planet_in.star)<1 && planet_in.star.parentbody.WD == false){
+                return 255/sqrt(planet_in.AUSun)
+            }
+            
+            
+        } 
+        
+        if(planet_in.star.planets[0] == undefined){
+            
+            return 3;
+        }
+        if(planet_in.star.planets[0].isStar && distanceFromParent(planet_in.star.planets[0]) <= 1 ){
+            if(distanceFromParent(planet_in.star.planets[0])<1 && planet_in.star.planets[0].WD == false){
+                return 255/sqrt(planet_in.AUSun)
+            }
+        }
+
+        return 3;
+    }else{
+        return 255/sqrt(planet_in.AUSun)
+    }
+   
 }
 
 var seed = Math.floor(Math.random()*441041798642919);
@@ -967,18 +1146,49 @@ function lumaToMass(luma_in){ // convert luma to mass for a...
         return (luma_in/1.4)**(1/3.5);
     }
 }
-
-function Test(){
-    var div = document.createElement("div");
-    div.classList.add("system");
-
-    var test_star = generateStar(0.08,8,true);
-    var planets = sortByDistance(test_star.planets);
-    for (let z = 0; z < planets.length; z++){
-        if(planets[z].isPlanet){
-
+function checkForTerrestrialPlanet(system){
+    for(let ii in system.planets){
+        if(system.planets[ii].liquid == 0){
+            return true;
         }
     }
+    return false;
+}
+var jk = 0;
+function Test(){
+    
+    var oolala=document.getElementById("seedinput");
+    if((oolala.value >= 0 || oolala.value <= 0)&&oolala.value != ""){ // oolala.value is a number
+    seed=oolala.value;
+    } // else use random seed
+    var kseed = seed;
+    
+    var ij = 0;
+    var div = document.createElement("div");
+    div.classList.add("system");
+    if(document.getElementById("forceTerrestrialPlanet").checked){
+        var kseed = seed;
+        var test_star = generateStar(0.08,8,true);
+        var planets = sortByDistance(test_star.planets);
+        while(checkForTerrestrialPlanet(test_star)==false && ij <= 50){
+            ij++;
+            var kseed = seed;
+            var test_star = generateStar(0.08,8,true);
+            var planets = sortByDistance(test_star.planets);
+        }
+        if(checkForTerrestrialPlanet(test_star)==false){
+            var div2 = document.getElementsByClassName("systemcontainer")[0];
+    div2.innerHTML = " "
+    addline("Could not generate valid system! Try again",div,"p",false);
+    console.log("Could not generate system with terrestrial planet, skipped 50 systems")
+    div2.appendChild(div);
+    return;
+        }
+    }else{
+    var test_star = generateStar(0.08,8,true);
+    var planets = sortByDistance(test_star.planets);
+    }
+    console.log("System generated with seed "+kseed+", skipped "+ij+" systems")
     
     var div2 = document.getElementsByClassName("systemcontainer")[0];
     div2.innerHTML = " "
@@ -1002,6 +1212,154 @@ inter_temp = inter_x;
 inter_x -= FFS(inter_temp,in_1)/OMFG(inter_temp,in_1);
 }
 return inter_x;
+}
+function planetTemp(planet){
+    if(planet.greenhouseEffect != undefined){
+        return baseTemperature(planet)*planet.greenhouseEffect;
+    } else {
+        return baseTemperature(planet);
+    }
+
+}
+function lowTemp(planet){
+    if(planet.greenhouseEffect != undefined){
+        return planetTemp(planet)* (1-(0.276 * (1/((6*planet.greenhouseEffect - 5)**2))));
+
+    } else {
+        return planetTemp(planet)* (1-(0.276 * (1/((6 - 5)**2))));
+    }    
+}
+function highTemp(planet){
+    if(planet.greenhouseEffect != undefined){
+        return planetTemp(planet)/ (1-(0.155 * (1/((6*planet.greenhouseEffect - 5)**2))));
+
+    } else {
+        return planetTemp(planet)/ (1-(0.155 * (1/((6- 5)**2))));
+    }    
+}
+class Liquid {
+    constructor(melting,boiling,deltaH){
+        this.melting=melting;
+        this.boiling=boiling;
+        this.deltaH=deltaH;
+    }
+}
+var water = new Liquid(273,373,40660);
+var methanum = new Liquid(90,111,8170);
+var liquids = [water, methanum]
+
+function boilingPoint(pressure = 1, liquid = water){
+    let baseBoilingPoint = liquid.boiling;
+    let deltaH = liquid.deltaH;
+    let xg = deltaH*baseBoilingPoint;
+    let yg = 8.314*baseBoilingPoint*Math.log(1/pressure);
+    let zg = xg/(yg+deltaH);
+    return zg;
+}
+var ccc = 0;
+var ddd = 0;
+function atmosphere(planet){
+    planet.atmobasegas="none";
+    planet.liquid="none";
+    planet.atmothickness=0;
+    planet.magneticField=false;
+    planet.greenhouseEffect=1;
+    planet.oxygen=0;
+    planet.liquidCoverage=0;
+    planet.liquid=-1;
+    if(planet.metal*planet.mass>planet.star.age/(100000)){
+        if(prng()<=planet.mass*4){
+            planet.magneticField = true;
+        }
+
+    }else{
+        planet.magneticField = false;
+    }
+    if(baseTemperature(planet) < 50) { // if the planet is too cold, none of these gases can form an atmosphere
+        return;
+    } 
+    if(prng()<=planet.mass){
+        if(planet.magneticField || (planet.parentbody.magneticField && AUToKm(distanceFromParent(planet)) <= radius(planet.parentbody)*8) || planet.AUSun >= 3){
+            planet.atmobasegas = "nitrogen"; // assume the atmosphere is nitrogen (as is the case with Pluto, Earth, and Titan);
+            planet.atmothickness = (prng()**4)*min(planet.mass,3)*16; // distribution of atmospheres
+            planet.greenhouseEffect = (prng()*0.25)*Math.min(1,planet.atmothickness)+0.05*Math.min(8,planet.atmothickness)+1
+   
+            if(highTemp(planet)>=boilingPoint(planet.atmothickness,water) && baseTemperature(planet)<=boilingPoint(planet.atmothickness,water) && planet.AUSun<1){
+                planet.atmobasegas = "carbondioxide"; // runaway greenhouse
+                
+                planet.atmothickness = prng()*50+75;
+                planet.greenhouseEffect = prng()*2+2;
+            }
+        }   else {
+            planet.atmobasegas = "carbondioxide"; // Mars-like atmosphere
+            planet.atmothickness = (prng()*0.04);
+        }
+    if(planet.atmothickness <= 0.02){ // very small atmosphere
+            if(planet.atmothickness <= 0.00001){
+                planet.atmothickness = 0;
+                planet.atmobasegas = "none";
+                planet.greenhouseEffect = 1;
+            }
+            return;
+        } else;
+    }
+    for (let i in liquids){
+        if(highTemp(planet)>=liquids[i].melting && highTemp(planet)<=boilingPoint(planet.atmothickness,liquids[i])){
+            if(prng()>=0.2){
+                if(lowTemp(planet)>=liquids[i].melting){
+                    planet.liquidCoverage = Math.min((prng()*2)**5+0.01,1);
+                    planet.liquid = i;
+                } else {
+                    planet.liquidCoverage = Math.min((prng()*2)**5+0.01,1);
+                    planet.liquid = i;
+                }
+                
+
+            }
+        }
+    }
+    planet.geoactive = false;
+    if(planet.parentbody != undefined){
+        if (planet.parentbody.isPlanet && planet.parentbody.mass >= 12 && planet.mass >= (planet.star.age/1000)*prng()/1000+0.0002 && AUToKm(distanceFromParent(planet)) <= radius(planet.parentbody)*15){
+            planet.geoactive = true;
+        } else {
+            if(planet.mass >= 0.03*(prng()*planet.star.age/10000) || planet.moons.length > 0){
+                planet.geoactive = true;
+            }
+        }
+    }
+    if(planet.geoactive && planet.liquid == 0 && planet.liquidCoverage >= 0 && prng()<=document.getElementById("lifeChance").value){
+
+        if(prng()/2 <= (planet.star.age-3000)/10000){
+            planet.life = 2;
+        }else{
+            planet.life = 1;
+        }
+        planet.lifeLocation = "surface";
+    }
+    if(planet.geoactive && planet.ice > 0 && prng()<=document.getElementById("lifeChance").value){
+
+        if(prng()/2 <= (planet.star.age-3000)/100000){
+            planet.life = 2;
+        }else{
+            planet.life = 1;
+        }
+        planet.lifeLocation = "subglacial"
+    }
+    if(planet.lifeLocation == "surface"){
+
+        if(prng()<=((planet.star.age-3000)/7000)**10+0.001){
+            planet.civ = true;
+            
+        }
+        else {
+            
+        }
+    }
+
+
+
+
 }
 
 function starTemp(star){
@@ -1072,8 +1430,9 @@ function generateStar(massLower=0.08,massUpper=8,isPrimary=true,canGeneratePlane
     );
     if(isPrimary==false){
         starOutput.parentbody = parentbody;
+        starOutput.age = parentbody.age;
     }
-    
+    starOutput.name = toTitleCase(generatePlanetName());
     // check if star should be a remnant
     var Li3 = 12000 /* lifespan of Sun */ * Li2**-2.5
     if (starOutput.age > Li3){
@@ -1112,6 +1471,9 @@ function generateStar(massLower=0.08,massUpper=8,isPrimary=true,canGeneratePlane
 
     return starOutput; // return the generated star    
 }
+function min(x,y){
+    return Math.min(x,y);
+}
 function generatePlanet(massLower=0.0001,massUpper=1000,AUSun,parentbody,star,distanceFromParent,index,type,isMoon=false){ // generate a planet given the specified properties; distance is in AU:sun: for convenience
     // type 0 = rocky planet (can have surface ice if beyond 2.5 AU:sun:)
     // type 1 = gas giant
@@ -1126,6 +1488,7 @@ function generatePlanet(massLower=0.0001,massUpper=1000,AUSun,parentbody,star,di
         [], // no moons by default
         AUSun // AUSun value
     )
+    planetOutput.name = toTitleCase(generatePlanetName());
     if(!(planetOutput.parentbody.isStar)){// correct AUSun for moons 
         planetOutput.AUSun = planetOutput.parentbody.AUSun; 
     }
@@ -1169,7 +1532,10 @@ function generatePlanet(massLower=0.0001,massUpper=1000,AUSun,parentbody,star,di
                 planetOutput.rock *= 1-iceProportion;
                 planetOutput.ice = iceProportion; // add ice crust/mantle
             }
+            atmosphere(planetOutput);
     }
+    
+    
 
     if(isMoon==false){
  
@@ -1587,7 +1953,7 @@ function FirstPlanet(star){
     ctx.imageSmoothingQuality="high";
     ctx.fillStyle = "rgb(0,255,0)";
     ctx.fillStyle = "rgb(0,255,0)";
-    drawCircle("rgb(255,255,0)",200-(radius(star)**0.33)*1,250,((radius(star)**0.33)*1),ctx); // DRAW STAR
+    drawPlanet(star,-50-(radius(star)**0.33)*1,3300,ctx,250); // DRAW STAR
         var g = 0;
         var gm = 1;
         for(var s = 0; s < star.planets.length; s++){
@@ -1622,7 +1988,7 @@ function FirstPlanet(star){
             }else{
                 g += ((radius(jj[s])**0.33)*3)+((jj[s].AUSun**1))*50;
             }
-            console.log(g);
+            
             
             if(jj[s].isPlanet){
                 if(jj[s].isStar){
@@ -1646,8 +2012,9 @@ function FirstPlanet(star){
                 }
             } else {
                 if (jj[s].planets.length == 0){
-                   
+                    
                     drawCircle("rgb(255,255,0)",(g/gt)*3300+250,250,((radius(jj[s])**0.33)*1),ctx); // DRAW STAR
+                    drawPlanet(jj[s],g,gt,ctx,250);
                     
                     
                 } else {
@@ -1666,30 +2033,96 @@ function FirstPlanet(star){
             if(c3 != undefined){
                 canvases.appendChild(drawSystem (div, c3, true))
             }
-            console.log(canvases);
+            
             return canvases // list 
         }
     }
 
     function drawPlanet (planet,g,gt,ctx,g2) {
+        if(planet.isPlanet){
+            var name = "Salibe";
+            if(planet.atmothickness > 0.01){
+            if(planet.atmobasegas == "carbondioxide"){
+                image(imageobjs["img/ATM_carbo.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*4),ctx);
+            } else{
+                image(imageobjs["img/ATM_nitro.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*4),ctx);
+            }
+        }
+
         if(planet.gas > Number.EPSILON){
             if(planet.ice <= Number.EPSILON){
-                drawCircle("rgb(214, 161, 81)",(g/gt)*3300+250,g2,((radius(planet)**0.33)*1),ctx);
                 image(imageobjs["img/planeticons/gasGiant.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
             } else{
-                drawCircle("rgb(51, 145, 204)",(g/gt)*3300+250,g2,((radius(planet)**0.33)*1),ctx);
                 image(imageobjs["img/planeticons/iceGiant.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
             }
         } else {
             if(planet.ice <= Number.EPSILON){
-                drawCircle("rgb(143, 135, 124)",(g/gt)*3300+250,g2,((radius(planet)**0.33)*1),ctx);
                 image(imageobjs["img/planeticons/rockyPlanet.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
             } else{
-                drawCircle("rgb(169, 201, 214)",(g/gt)*3300+250,g2,((radius(planet)**0.33)*1),ctx);
                 image(imageobjs["img/planeticons/icyPlanet.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
             }
         }
+        if(planet.life == 2 && planet.lifeLocation == "surface"){
+            image(imageobjs["img/planeticons/lifeOverlayWater.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+        }
+        if(planet.liquidCoverage > 0.0001){
+            if(planet.liquid == 0){
+                if(planet.liquidCoverage == 1){
+                    image(imageobjs["img/planeticons/waterOverlay3.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+                }else if(planet.liquidCoverage > 0.5){
+                    image(imageobjs["img/planeticons/waterOverlay2.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+                }else {
+                    image(imageobjs["img/planeticons/waterOverlay1.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+                }
+                
+            } else{
+                if(planet.liquidCoverage == 1){
+                    image(imageobjs["img/planeticons/methaneOverlay3.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+                }else if(planet.liquidCoverage > 0.5){
+                    image(imageobjs["img/planeticons/methaneOverlay2.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+                }else {
+                    image(imageobjs["img/planeticons/methaneOverlay1.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+                }
+            }
+        }
+        image(imageobjs["img/planeticons/shade.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*2),ctx);
+        ctx.save();
+        ctx.fillStyle="rgb(255,255,255)";
+        ctx.font=Math.min(Math.max(Math.ceil(radius(planet)**0.33),20),40)+ "px Comfortaa"
+        ctx.translate((g/gt)*3300+250,g2);
+        ctx.rotate(-Math.PI/4);
+        ctx.textAlign="left";
+        if(planet.name != undefined){ctx.fillText(planet.name,((radius(planet)**0.33)*1)+10,0);}else{ctx.fillText("Salibe",((radius(planet)**0.33)*1)+10,0);}
+        ctx.restore();
+        } else {
+           
+            if(mass(planet) <= 0.4){
+                image(imageobjs["img/staricons/typem.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*6),ctx);
+            } else if(mass(planet) <= 0.8){
+                image(imageobjs["img/staricons/typek.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*6),ctx);
+            }else if(mass(planet) <= 1.04){
+                image(imageobjs["img/staricons/typeg.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*6),ctx);
+            }else if(mass(planet) <= 1.4){
+                image(imageobjs["img/staricons/typef.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*6),ctx);
+            }else if(mass(planet) <= 2.1){
+                image(imageobjs["img/staricons/typea.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*6),ctx);
+            }else if(mass(planet) <= 999){
+                image(imageobjs["img/staricons/typeb.png"],(g/gt)*3300+250,g2,((radius(planet)**0.33)*6),ctx);
+            }else;
+            ctx.save();
+        ctx.fillStyle="rgb(255,255,255)";
+        ctx.font=Math.min(Math.max(Math.ceil(radius(planet)**0.25)*2,30),50)+ "px Comfortaa"
+        ctx.translate((g/gt)*3300+250,g2);
+        ctx.rotate(-Math.PI/4);
+        ctx.textAlign="left";
+        if(planet.name != undefined){ctx.fillText(planet.name,((radius(planet)**0.33)*1)+10,0);} else {ctx.fillText("Salibe",((radius(planet)**0.33)*1)+10,0);}
+        
+        ctx.restore();
+        }
+        
+
     }
+    
     /*
     function drawSystem (div, star, sub = false){
         tempCanvas = new canvas
@@ -1767,12 +2200,21 @@ function FirstPlanet(star){
 
      function systemDataToHTML(system,div){
         div.innerHTML = ""
+        aaa++;
         
         parseObjectData(system,div);
      }
+     var aaa = 0;
+     var bbb = 0;
      function parseObjectData(system,div){
+        
         if(system.isStar){
-            addline("<img class='icon2 whiteicon' src='img/iconClassG.png'>STAR: BEPIS",div,"h3",true);
+            if(system.name == undefined){
+                addline("<img class='icon2 whiteicon' src='img/iconClassG.png'>STAR: Salibe",div,"h3",true);
+            }else{
+                addline("<img class='icon2 whiteicon' src='img/iconClassG.png'>STAR: "+toTitleCase(system.name),div,"h3",true);
+            }
+            
             if(system.WD){
                 var l1 = lumaToMass(system.luma);
                 addline("White dwarf (mass: "+l1.toFixed(2)+"x Sun)",div,"p",true);
@@ -1808,27 +2250,39 @@ function FirstPlanet(star){
             }
         } else if (system.isPlanet){
             if(system.parentbody.isStar && system.mass >= 0.01){
-                addline("<img class='icon2 whiteicon' src='img/iconUberplanet.png'>MAJOR PLANET: SALIBE",div,"h3",true);
+                if(system.name == undefined){
+                addline("<img class='icon2 whiteicon' src='img/iconUberplanet.png'>MAJOR PLANET: Salibe",div,"h3",true);
+            }else{
+                addline("<img class='icon2 whiteicon' src='img/iconUberplanet.png'>MAJOR PLANET: "+toTitleCase(system.name),div,"h3",true);
+            }
                 addline("<img class='icon whiteicon' src='img/iconDistance.png'> Distance from star: " + distanceFromParent(system).toFixed(5) + " AU ("+ system.AUSun.toFixed(3)+" AU☉)",div,"p",true)
                 if(system.parentbody.planets[0].isStar && system.parentbody.planets[0].AUSun <= 0.3){
                     var carykh = lumaToMass(system.parentbody.luma)+lumaToMass(system.parentbody.planets[0].luma)
                 } else {
                     var carykh = lumaToMass(system.parentbody.luma)
                 }
-                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Year: " + (OrbitToYear(distanceFromParent(system),carykh)*365) + " days",div,"p",true)
+                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Year: " + (OrbitToYear(distanceFromParent(system),carykh)*365).toFixed(2) + " days",div,"p",true)
             } else if(!(system.parentbody.isStar)){
-                addline("<img class='icon2 whiteicon' src='img/iconSatellite.png'>SATELLITE PLANET: SALIBE",div,"h3",true);
+                if(system.name == undefined){
+                addline("<img class='icon2 whiteicon' src='img/iconSatellite.png'>SATELLITE PLANET: Salibe",div,"h3",true);
+            }else{
+                addline("<img class='icon2 whiteicon' src='img/iconSatellite.png'>SATELLITE PLANET: "+toTitleCase(system.name),div,"h3",true);
+            }
                 addline("<img class='icon whiteicon' src='img/iconDistance.png'> Distance from planet: " + distanceFromParent(system).toFixed(5) + " AU",div,"p",true)
-                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Month: " + (OrbitToYear(distanceFromParent(system),system.parentbody.mass/333000)*365) + " days",div,"p",true)
+                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Month: " + (OrbitToYear(distanceFromParent(system),system.parentbody.mass/333000)*365).toFixed(2) + " days",div,"p",true)
             } else {
-                addline("<img class='icon2 whiteicon' src='img/iconUnterplanet.png'>DWARF PLANET: SALIBE",div,"h3",true);
+                if(system.name == undefined){
+                addline("<img class='icon2 whiteicon' src='img/iconUnterplanet.png'>DWARF PLANET: Salibe",div,"h3",true);
+            }else{
+                addline("<img class='icon2 whiteicon' src='img/iconUnterplanet.png'>DWARF PLANET: "+toTitleCase(system.name),div,"h3",true);
+            }
                 addline("<img class='icon whiteicon' src='img/iconDistance.png'> Distance from star: " + distanceFromParent(system).toFixed(5) + " AU ("+ system.AUSun.toFixed(3)+" AU☉)",div,"p",true)
                 if(system.parentbody.planets[0].isStar && system.parentbody.planets[0].AUSun <= 0.3){
                     var carykh = lumaToMass(system.parentbody.luma)+lumaToMass(system.parentbody.planets[0].luma)
                 } else {
                     var carykh = lumaToMass(system.parentbody.luma)
                 }
-                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Year: " + (OrbitToYear(distanceFromParent(system),carykh)*365) + " days",div,"p",true)
+                addline("<img class='icon whiteicon' src='img/iconSystem.png'> Year: " + (OrbitToYear(distanceFromParent(system),carykh)*365).toFixed(2) + " days",div,"p",true)
             }
             addline("<img class='icon whiteicon' src='img/iconMass.png'> Mass: " + system.mass.toFixed(6) +  "x Earth",div,"p",true)
             addline("<img class='icon whiteicon' src='img/iconRadius.png'> Radius: " + radius(system).toFixed(1) + " km (" + (radius(system)/6371).toFixed(3)+"x Earth)",div,"p",true)
@@ -1871,6 +2325,78 @@ function FirstPlanet(star){
             }else {
                 addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Base temperature: <img class='icon' src='img/iconTemp7.png'><span class='red'>" + baseTemperature(system).toFixed(0) + " Kelvin ("+ (baseTemperature(system)-273).toFixed(0) + " Celsius)</span>",div,"p",true)
             }
+
+            if(system.atmothickness > 0 ){
+                if(planetTemp(system) != undefined){
+                if(planetTemp(system)<100){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Temperature: <img class='icon' src='img/iconTemp1.png'><span class='purple'>" + planetTemp(system).toFixed(0) + " Kelvin ("+ (planetTemp(system)-273).toFixed(0) + " Celsius, "+lowTemp(system).toFixed(0) + "K "+ (lowTemp(system)-273).toFixed(0) +"C low, "+highTemp(system).toFixed(0) + "K "+ (highTemp(system)-273).toFixed(0) +"C high)</span>",div,"p",true)
+            } else
+            if(planetTemp(system)<173){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Temperature: <img class='icon' src='img/iconTemp2.png'><span class='blue'>" + planetTemp(system).toFixed(0) + " Kelvin ("+ (planetTemp(system)-273).toFixed(0) + " Celsius, "+lowTemp(system).toFixed(0) + "K "+ (lowTemp(system)-273).toFixed(0) +"C low, "+highTemp(system).toFixed(0) + "K "+ (highTemp(system)-273).toFixed(0) +"C high)</span>",div,"p",true)
+            } else
+            if(planetTemp(system)<250){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Temperature: <img class='icon' src='img/iconTemp3.png'><span class='lightblue'>" + planetTemp(system).toFixed(0) + " Kelvin ("+ (planetTemp(system)-273).toFixed(0) + " Celsius, "+lowTemp(system).toFixed(0) + "K "+ (lowTemp(system)-273).toFixed(0) +"C low, "+highTemp(system).toFixed(0) + "K "+ (highTemp(system)-273).toFixed(0) +"C high)</span>",div,"p",true)
+            }  else
+            if(planetTemp(system)<320){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Temperature: <img class='icon' src='img/iconTemp4.png'><span class='lightgreen'>" + planetTemp(system).toFixed(0) + " Kelvin ("+ (planetTemp(system)-273).toFixed(0) + " Celsius, "+lowTemp(system).toFixed(0) + "K "+ (lowTemp(system)-273).toFixed(0) +"C low, "+highTemp(system).toFixed(0) + "K "+ (highTemp(system)-273).toFixed(0) +"C high)</span>",div,"p",true)
+            }else
+            if(planetTemp(system)<400){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Temperature: <img class='icon' src='img/iconTemp5.png'><span class='yellow'>" + planetTemp(system).toFixed(0) + " Kelvin ("+ (planetTemp(system)-273).toFixed(0) + " Celsius, "+lowTemp(system).toFixed(0) + "K "+ (lowTemp(system)-273).toFixed(0) +"C low, "+highTemp(system).toFixed(0) + "K "+ (highTemp(system)-273).toFixed(0) +"C high)</span>",div,"p",true)
+            }else
+            if(planetTemp(system)<550){
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Temperature: <img class='icon' src='img/iconTemp6.png'><span class='orange'>" + planetTemp(system).toFixed(0) + " Kelvin ("+ (planetTemp(system)-273).toFixed(0) + " Celsius, "+lowTemp(system).toFixed(0) + "K "+ (lowTemp(system)-273).toFixed(0) +"C low, "+highTemp(system).toFixed(0) + "K "+ (highTemp(system)-273).toFixed(0) +"C high)</span>",div,"p",true)
+            }else {
+                addline("<img class='icon whiteicon' src='img/iconTemperature.png'> Temperature: <img class='icon' src='img/iconTemp7.png'><span class='red'>" + planetTemp(system).toFixed(0) + " Kelvin ("+ (planetTemp(system)-273).toFixed(0) + " Celsius, "+lowTemp(system).toFixed(0) + "K "+ (lowTemp(system)-273).toFixed(0) +"C low, "+highTemp(system).toFixed(0) + "K "+ (highTemp(system)-273).toFixed(0) +"C high)</span>",div,"p",true)
+            }
+            }
+            addline("<img class='icon whiteicon' src='img/iconAtmosphere.png'> Atmosphere thickness: <img class='icon' src='img/iconAtmo4.png'><span class=lightblue>"+(system.atmothickness*100).toFixed(0)+"%</span> that of Earth's atmosphere, contributing to a <span class='orange'>"+((system.greenhouseEffect-1)*100).toFixed(0)+"%</span> increase in temperature",div,"p",true)
+            if(system.atmobasegas=="carbondioxide"){
+                addline("<img class='icon whiteicon' src='img/iconAtmosphere.png'> Atmosphere is primarily <img class='icon' src='img/iconCarbonDioxide.png'><span class=orange>carbon dioxide</span>",div,"p",true)
+            }else{
+                addline("<img class='icon whiteicon' src='img/iconAtmosphere.png'> Atmosphere is primarily <img class='icon' src='img/iconNitrogen.png'><span class=lightblue>nitrogen</span>",div,"p",true)
+                
+            }
+            
+            if(system.liquidCoverage > 0){
+                if(system.liquid == 0){
+                    addline("<img class='icon whiteicon' src='img/iconLiquid.png'> Liquid: <img class='icon' src='img/iconWater.png'><span class=blue> water </span>, covering "+(system.liquidCoverage*100).toFixed(0)+"% of the surface",div,"p",true);
+                    bbb++;
+                    
+                    if(lowTemp(system)<water.melting){
+                        addline("<img class='icon whiteicon' src='img/iconIcy.png'> Has ice caps",div,"p",true);
+                    }
+                }else 
+                if(system.liquid == 1){
+                    addline("<img class='icon whiteicon' src='img/iconLiquid.png'> Liquid: <img class='icon' src='img/iconMethanum.png'><span class=lightgray> methanum </span>, covering "+(system.liquidCoverage*100).toFixed(0)+"% of the surface",div,"p",true)
+                    if(lowTemp(system)<methanum.melting){
+                        addline("<img class='icon whiteicon' src='img/iconIcy.png'> Has ice caps",div,"p",true);
+                    }
+                }
+            }
+
+            
+        }
+        if(system.gas == 0){
+            if(system.geoactive){
+                addline("<img class='icon whiteicon' src='img/iconActivity.png'> Geologically active: YES",div,"p",true)
+            }else{
+                addline("<img class='icon whiteicon' src='img/iconActivity.png'> Geologically active: NO",div,"p",true)
+            }
+            if(system.life > 0){
+                
+                if(system.life == 1){
+                    addline("<img class='icon whiteicon' src='img/iconLife.png'> Life: <img class='icon' src='img/iconProkaryotic.png'><span class='purple'> precambrian </span> ("+system.lifeLocation+")",div,"p",true)
+                }else{
+                    addline("<img class='icon whiteicon' src='img/iconLife.png'> Life: <img class='icon' src='img/iconMulticellular.png'><span class='purple'> phanerozoic </span> ("+system.lifeLocation+")",div,"p",true)
+                }
+            }
+            if(system.civ){
+                addline("<img class='icon whiteicon' src='img/iconCivilization.png'><span class='purple'> Is a homeworld </span> ",div,"p",true)
+            }
+        }
+            
+
+            
             
             if(system.moons.length >= 0){
                 for(let z1 = 0; z1 < system.moons.length; z1++){
